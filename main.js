@@ -1,10 +1,10 @@
 import { Octokit, App } from "https://esm.sh/octokit?dts"
-
+const auth_file = await Deno.readTextFile("./gh_personal_access.txt")
 const okit = new Octokit ({
-    auth: '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'
+    auth: auth_file
 })
 
-const {
+/* const {
     data: { login },
 } = await okit.rest.users.getAuthenticated();
 console.log(`Hello user ${login}`)
@@ -26,13 +26,13 @@ const printrepo = await okit.request(`GET /repos/{owner}/{repo}/commits`, {
 })
 
 var data = printrepo['data']
+// console.log(data[0]['commit']['message'])
 let i = 0
-
-    console.log(`\nDate: ${d3}\nCommitter: ${d2}\nCommit: ${d1}\n------------------------------------------------------`)
 while (i < data.length) {
     var d1 = data[i]['commit']['message']
     var d2 = data[i]['commit']['committer']['name']
     var d3 = data[i]['commit']['committer']['date']
+    console.log(`\nDate: ${d3}\nCommitter: ${d2}\nCommit: ${d1}\n------------------------------------------------------`)
     i++
 }
 // console.log(printrepo['data']['0']['commit']['message'])
